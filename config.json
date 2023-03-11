@@ -1,0 +1,20 @@
+{
+  "params":
+  {
+    "local_server":"True",
+    "local_uri": "mysql://root:@localhost/test.db",
+    "prod_uri":"mysql://root:@localhost/test.db",
+    "fb_url":"https://facebook.com/test.db",
+    "tw_url":"https://twitter.com/test.db",
+    "gh_url": "https://github.com/test.db",
+    "blog_name": "Coding Thunder",
+    "tag_line": "Heaven for programmers",
+    "gmail-user":"bilalasghar1964@gmail.com",
+    "gmail-password":"uuhjvzrunwnvopjb",
+    "about_text": "Hi my name is harry and I create programming tutorials",
+    "no_of_posts": 6,
+    "login_image":"login.svg",
+    "admin_user":"bilalasghar1964@gmail.com",
+    "admin_password": "subscribenow"
+  }
+}
