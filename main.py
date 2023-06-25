@@ -98,7 +98,8 @@ def contact():
         #                   sender=email,
         #                   recipients=[params['gmail-user']],
         #                   body=message + "\n" + phone
-        #                   )
+        #   ###                )
+
     return render_template('contact.html', params=params)
 
 
