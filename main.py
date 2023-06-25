@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request
+import params as params
+from flask import Flask, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 import json
@@ -6,18 +7,21 @@ from datetime import datetime
 
 with open('config.json', 'r') as c:
     params = json.load(c)["params"]
-
 local_server = True
+
 app = Flask(__name__)
-app.config.update(
-    MAIL_SERVER='smtp.gmail.com',
-    MAIL_PORT='465',
-    MAIL_USE_SSL=True,
-    MAIL_USERNAME=params['gmail-user'],
-    MAIL_PASSWORD=params['gmail-password']
-)
+app.secret_key = 'super-secret-key'
+var = app.config.update
+
+MAIL_SERVER = "smtp.gmail.com"
+MAIL_PORT = '465',
+
+MAIL_USE_SSL = True,
+MAIL_USERNAME = params['gmail-user']
+MAIL_PASSWORD = params['gmail-password']
+
 mail = Mail(app)
-if (local_server):
+if local_server:
     app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = params['prod_uri']
@@ -50,10 +54,20 @@ def home():
     return render_template('index.html', params=params, posts=posts)
 
 
-@app.route("/dashboard/", methods=['GET', 'POST'])
+@app.route("/dashboard/")
 def dashboard():
+    if 'user' in session and session['user'] == params['admin_user']:
+        posts = Posts.querry.all()
+        return render_template("dashboard.html", params=params, posts=posts)
+
     if request.method == "POST":
-        pass
+        username = request.form.get("uname")
+        userpass = request.form.get("upass")
+        if username == params['admin_user'] and userpass == params['admin_password']:
+            # set the session variable
+            session['user'] = username
+            posts = Posts.query.all()
+            return render_template("dashboard.html", params=params, posts=posts)
     else:
         return render_template("login.html", params=params)
     return 'OK'
@@ -80,11 +94,11 @@ def contact():
         entry = Contacts(name=name, phone_num=phone, msg=message, date=datetime.now(), email=email)
         db.session.add(entry)
         db.session.commit()
-        mail.send_message('New message from ' + name,
-                          sender=email,
-                          recipients=[params['gmail-user']],
-                          body=message + "\n" + phone
-                          )
+        # mail.send_message('New message from ' + name,
+        #                   sender=email,
+        #                   recipients=[params['gmail-user']],
+        #                   body=message + "\n" + phone
+        #                   )
     return render_template('contact.html', params=params)
 
 
