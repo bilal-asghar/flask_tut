@@ -9,12 +9,13 @@
     "gh_url": "https://github.com/test.db",
     "blog_name": "Coding Thunder",
     "tag_line": "Heaven for programmers",
-    "gmail-user":"bilalasghar1964@gmail.com",
-    "gmail-password":"13INDIA2043@",
+    "gmail-user":"youremail@gmail.com",
+    "gmail-password":"nbjhfgui87",
     "about_text": "Hi my name is harry and I create programming tutorials",
-    "no_of_posts": 6,
-    "login_image":"login.svg",
+    "no_of_posts": 4,
+    "login_image":"train.jpg",
     "admin_user":"bilalasghar1964@gmail.com",
-    "admin_password": "77DUBAI2023#"
+    "admin_password": "h jb bb n",
+    "upload_location": "C:\\Users\\user\\PycharmProjects\\Flask_tut\\static"
   }
 }
